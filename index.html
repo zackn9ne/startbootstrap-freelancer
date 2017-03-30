@@ -28,61 +28,21 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+	<script src="https://npmcdn.com/react-router@3.0.2/umd/ReactRouter.min.js"></script> 
 
 </head>
 
 <body id="page-top" class="index">
 <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+    <!-- Navigation is a react componenet now-->
 
-    <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#about">About</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+	<div className="content">
+          {this.props.children}
         </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="container" id="maincontent" tabindex="-1">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="img/profile.png" alt="">
-                    <div class="intro-text">
-                        <h1 class="name">Start Bootstrap</h1>
-                        <hr class="star-light">
-                        <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+	<div id="react-me"></div>
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container">
@@ -531,7 +491,136 @@
 
     <!-- Theme JavaScript -->
     <script src="js/freelancer.min.js"></script>
+<script type="text/babel">
+var destination = document.querySelector("#react-me");
 
+var { Router,
+      Route,
+      IndexRoute,
+      IndexLink,
+      hashHistory,
+      Link } = ReactRouter;
+
+var App = React.createClass({
+  render: function() {
+    return (
+
+	<div>
+	<Navbar/>
+	<Header/>
+	</div>
+
+    );
+  }
+});
+
+{/* voltron above little guys [components] below */}
+var Navbar = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+        {/* Navigation */}
+        <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
+          <div className="container">
+            {/* Brand and toggle get grouped for better mobile display */}
+            <div className="navbar-header page-scroll">
+              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars" />
+              </button>
+              <a className="navbar-brand" href="#page-top">Start Bootstrap</a>
+            </div>
+            {/* Collect the nav links, forms, and other content for toggling */}
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className="nav navbar-nav navbar-right">
+                <li className="hidden">
+                  <a href="#page-top" />
+                </li>
+                <li className="page-scroll">
+                  <a href="#portfolio">Portfolio</a>
+                </li>
+                <li className="page-scroll">
+                  <a href="#about">About</a>
+                </li>
+                <li className="page-scroll">
+                  <a href="#contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+            {/* /.navbar-collapse */}
+          </div>
+          {/* /.container-fluid */}
+        </nav>
+      </div>
+    );
+  }
+});
+	
+
+var Header = React.createClass({
+  render: function() {
+    return (
+
+      <header>
+        <div className="container" id="maincontent" >
+          <div className="row">
+            <div className="col-lg-12">
+	      <img className="img-responsive" src="img/profile.png" />
+              <div className="intro-text">
+                <h1 className="name">Start Bootstrap</h1>
+                <hr className="star-light" />
+                <span id="welcome-msg" className="skills">Welcome to React</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
+});
+
+var Home = React.createClass({
+  render: function() {
+      return (
+        <div>
+          <h2>HELLO</h2>
+          <p>Welcome to our homepage</p>
+        </div>
+      );
+    }
+});
+
+var Contact = React.createClass({
+  render: function() {
+      return (
+        <div>
+          <h2>GOT QUESTIONS?</h2>
+          <p>The easiest thing to do is post on
+          our <a href="http://forum.kirupa.com">forums</a>.
+          </p>
+        </div>
+      );
+    }
+});
+
+
+{/* pulls trigger on react code */}
+  
+
+ReactDOM.render(
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+ 
+    </Route>
+  </Router>,
+  destination
+);
+
+
+
+
+
+</script>
 </body>
 
 </html>
